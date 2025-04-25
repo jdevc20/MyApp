@@ -2,10 +2,6 @@
 using MyApp.Domain.Entities;
 using MyApp.Domain.Interfaces;
 using MyApp.Infrastructure.Security;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MyApp.Infrastructure.Repositories
 {
@@ -63,9 +59,10 @@ namespace MyApp.Infrastructure.Repositories
             }
         }
 
-        public Task AddAsync(User user)
+        // Implement GetByEmailAsync to retrieve a user by email
+        public async Task<User> GetByEmailAsync(string email)
         {
-            throw new NotImplementedException();
+            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
     }
 }

@@ -43,7 +43,6 @@ namespace MyApp.Server.Controllers
                 Email = request.Email,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-     
             };
 
             await _userService.CreateUserAsync(user, request.Password);

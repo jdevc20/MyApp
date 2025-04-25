@@ -1,11 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyApp.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyApp.Infrastructure
 {
@@ -58,5 +52,4 @@ namespace MyApp.Infrastructure
             return await base.SaveChangesAsync(cancellationToken);
         }
     }
-
 }
