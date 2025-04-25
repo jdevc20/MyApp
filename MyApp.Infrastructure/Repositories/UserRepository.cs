@@ -1,8 +1,11 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using MyApp.Domain.Entities;
 using MyApp.Domain.Interfaces;
+using MyApp.Infrastructure.Security;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MyApp.Infrastructure.Repositories
 {
@@ -15,8 +18,21 @@ namespace MyApp.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task AddAsync(User user)
+        public async Task AddAsync(User user, string plainPassword)
         {
+            if (string.IsNullOrWhiteSpace(user.Username) || string.IsNullOrWhiteSpace(user.Email) || string.IsNullOrWhiteSpace(plainPassword))
+                throw new ArgumentException("Username, Email, and Password are required.");
+
+            if (await _context.Users.AnyAsync(u => u.Username == user.Username))
+                throw new InvalidOperationException("Username already exists.");
+
+            if (await _context.Users.AnyAsync(u => u.Email == user.Email))
+                throw new InvalidOperationException("Email already exists.");
+
+            var (hash, salt) = PasswordHasher.HashPassword(plainPassword);
+            user.PasswordHash = hash;
+            user.PasswordSalt = salt;
+
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
         }
@@ -46,6 +62,10 @@ namespace MyApp.Infrastructure.Repositories
                 await _context.SaveChangesAsync();
             }
         }
-    }
 
+        public Task AddAsync(User user)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

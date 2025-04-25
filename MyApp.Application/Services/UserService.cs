@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MyApp.Application.Services
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
 
@@ -21,7 +21,7 @@ namespace MyApp.Application.Services
 
         public async Task<User> GetUserByIdAsync(int id) => await _userRepository.GetByIdAsync(id);
 
-        public async Task CreateUserAsync(User user) => await _userRepository.AddAsync(user);
+        public async Task CreateUserAsync(User user, string userPassword) => await _userRepository.AddAsync(user, userPassword);
 
         public async Task UpdateUserAsync(User user) => await _userRepository.UpdateAsync(user);
 

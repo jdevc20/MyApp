@@ -25,6 +25,7 @@
     <ProjectReference Include="..\myapp.client\myapp.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\MyApp.Domain\MyApp.Domain.csproj" />
     <ProjectReference Include="..\MyApp.Infrastructure\MyApp.Infrastructure.csproj" />
   </ItemGroup>
 

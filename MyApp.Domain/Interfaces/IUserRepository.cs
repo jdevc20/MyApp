@@ -11,7 +11,7 @@ namespace MyApp.Domain.Interfaces
     {
         Task<User> GetByIdAsync(int id);
         Task<IEnumerable<User>> GetAllAsync();
-        Task AddAsync(User user);
+        Task AddAsync(User user, string u);
         Task UpdateAsync(User user);
         Task DeleteAsync(int id);
     }
